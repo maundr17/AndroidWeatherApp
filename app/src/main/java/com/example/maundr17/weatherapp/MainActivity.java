@@ -23,6 +23,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.Date;
 
+import data.CityPreference;
 import data.JSONWeatherParser;
 import data.WeatherHttpClient;
 import model.Weather;
@@ -59,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
         sunset = (TextView) findViewById(R.id.setText);
         update = (TextView) findViewById(R.id.updateText);
 
-        renderWeatherData("NewYork,US");
+        CityPreference cityPreference = new CityPreference(MainActivity.this);
+        renderWeatherData(cityPreference.getCity());
     }
 
     public void renderWeatherData(String city) {
@@ -123,7 +125,9 @@ public class MainActivity extends AppCompatActivity {
 
         private Bitmap downloadImage(String code) {
             DefaultHttpClient client = new DefaultHttpClient();
-            //final HttpGet getRequest = new HttpGet(Utils.ICON_URL + code + ".png");
+
+            // problems with the API not returning image use a replacement image for now
+                //final HttpGet getRequest = new HttpGet(Utils.ICON_URL + code + ".png");
             final HttpGet getRequest = new HttpGet("http://i62.tinypic.com/28mcwg5.gif");
 
             try {
